@@ -1,18 +1,19 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs
+import json
 
 pandas = []
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/pandas":
-            self.handleAssassinFound_GET()
+            self.handleAssassinFound_LIST()
         else:
             self.handleNotFound()
 
-    def de_POST(self):
-        if self.path == "/pandass":
-            self.handleAssassinFound_POST()
+    def do_POST(self):
+        if self.path == "/pandas":
+            self.handleAssassinFound_CREATE()
         else:
             self.handleNotFound()
 
@@ -22,17 +23,20 @@ class MyHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes("404 Not Found.","utf-8"))
 
-    def handleAssassinFound_GET(self):
+    def handleAssassinFound_LIST(self):
         self.send_response(200)
-        self.send_header("content-type", "text/html")
+        self.send_header("content-type", "application/json")
+        #JSON Also ^^^
         self.end_headers()
-        self.wfile.write(bytes("Hello " + str(pandas),"utf-8"))
+        self.wfile.write(bytes(json.dumps(pandas),"utf-8"))
+        #This will be the JSON code ^^^
 
-    def handleAssassinFound_POST(self):
-        self.send_response(200)
+    def handleAssassinFound_CREATE(self):
+        self.send_response(201)
         #self.send_header("content-type", "application/x-www-form-urlencoded")
+        #This will be on the client
 
-        #REMEMBER YOUR USING /PANDASS
+        #
 
         length = self.headers["content-length"]
         body = self.rfile.read(int(length)).decode("utf-8")
