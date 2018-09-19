@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs
 import json
 
-pandas = []
+assassins = []
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -26,18 +26,17 @@ class MyHandler(BaseHTTPRequestHandler):
     def handleAssassinFound_LIST(self):
         self.send_response(200)
         self.send_header("content-type", "application/json")
+        self.send_header('Access-Control-Allow-Origin', '*')
         #JSON Also ^^^
         self.end_headers()
-        self.wfile.write(bytes(json.dumps(pandas),"utf-8"))
+        self.wfile.write(bytes(json.dumps(assassins),"utf-8"))
         #This will be the JSON code ^^^
 
     def handleAssassinFound_CREATE(self):
         self.send_response(201)
         #self.send_header("content-type", "application/x-www-form-urlencoded")
         #This will be on the client
-
-        #
-
+        self.send_header('Access-Control-Allow-Origin', '*')
         length = self.headers["content-length"]
         body = self.rfile.read(int(length)).decode("utf-8")
         self.end_headers()
@@ -47,7 +46,7 @@ class MyHandler(BaseHTTPRequestHandler):
         name = data['fname'][0]
         print("The First name:", name)
         
-        pandas.append(name)
+        assassins.append(name)
 
 
 def run():
