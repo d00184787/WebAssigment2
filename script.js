@@ -16,13 +16,7 @@ console.log("bountyInput4 ", bountyInput4);
 bountySubmit = document.querySelector("#bountySubmit");
 console.log("bountySubmit ", bountySubmit);
 
-//Read the Inputs when Submit
-bountySubmit.onclick = function(){
-	console.log(bountyInput1.value, bountyInput2.value, bountyInput3.value, bountyInput4.value)
-	bountyClientInfo = bountyInput1.value //Save all the inputs in one dictonary
-	console.log("All the Bounty Info: ",bountyClientInfo)
-}
-
+var bountyList = document.querySelector('#bountyList');
 
 list_of_hits = [{name:"John Doe"},
 		{age:"21"},
@@ -30,7 +24,56 @@ list_of_hits = [{name:"John Doe"},
 		{bounty:"500000"}
 		]
 
+//For TESTING puroses, create a inital list of doom to test create. Once done, remove it. You only
+//create when you do a input
+
+var bountyClientInfo;
+
+//Create Bounty 
+var pinBountyPaper = function(bountyClientInfo) { //MUST BE DONE THROUGH GET
+
+	var bountyDiv = document.createElement("div");
+	var bountyPic = document.createElement("div");
+	var bountyListContainer = document.createElement("div");
+
+	var bountyUL = document.createElement("ul");
+	var bountyName = document.createElement("li");
+	var bountyAge = document.createElement("li");
+	var bountyReason = document.createElement("li");
+	var bountyBounty = document.createElement("li");
+
+	bountyDiv.className = "bounty";
+	bountyPic.className = "bountyPic";
+	bountyListContainer.className = "bountyListContainer"
+
+	bountyName.innerHTML = bountyClientInfo.name
+	bountyAge.innerHTML = bountyClientInfo.age
+	bountyReason.innerHTML = bountyClientInfo.reason
+	bountyBounty.innerHTML = bountyClientInfo.bounty
+
+	bountyList.appendChild(bountyDiv)
+	bountyDiv.appendChild(bountyPic)
+	bountyDiv.appendChild(bountyListContainer)
+	bountyListContainer.appendChild(bountyUL)
+
+	bountyUL.appendChild(bountyName)
+	bountyUL.appendChild(bountyAge)
+	bountyUL.appendChild(bountyReason)
+	bountyUL.appendChild(bountyBounty)
+};
+
+//Read the Inputs when Submit
+bountySubmit.onclick = function(){
+	bountyClientInfo = {name: bountyInput1.value, age: bountyInput2.value, reason: bountyInput3.value, bounty: bountyInput4.value}
+	console.log("All the Bounty Info: ",bountyClientInfo)
+	console.log("All the Bounty Info: ", bountyClientInfo.reason)
+
+	createBounty(bountyClientInfo)
+	//pinBountyPaper(bountyClientInfo)
+}
+
 //FETCH GET
+var getBounty = function(name){
 fetch("http://localhost:8080/pandas").then(function (response) {
 	response.json().then(function(theData){
 		console.log("Data List:", theData)
@@ -38,23 +81,23 @@ fetch("http://localhost:8080/pandas").then(function (response) {
 	  	console.log("List of Hits:", list_of_hits)
   	});
 });
+};
+
 console.log("List of Hits2: ", list_of_hits)
 
 //FETCH CREATE
-var createBounty = function(name) {
-	var someData = `name=${encodeURIcomponet(name)}`;
+var createBounty = function(bountyClientInfo) {
+	var Data = bountyClientInfo=encodeURIcomponent(bountyClientInfo);
 	fetch("http://localhost:8080/pandas",{
 		method: "POST",
-		body: someData,
+		body: Data,
 		headers: {"content-type":"application/x-www-form-urlencoded"}
 	}).then(function (response) {
 		response.json().then(function(theData){
-			console.log("Cool, you were able create something:", someData)
+			console.log("Cool, you were able create something:", Data)
+			//Need to save the data to file?
   		});
 	});
 };
-
-
-
 
 

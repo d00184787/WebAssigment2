@@ -5,12 +5,88 @@ body{
 	background-size: cover;
 }
 
+#header{
+	width:auto;
+	height:125px;
+	background-color:red;
+}
+
 #Container{
 	background-size: cover;
 	background-color:#ccc;
 	margin:0 auto;
-	width:75%;
+	height:925px;
+	width:90%;
 	padding:10px 0 0 0px;
-	
 }
 
+#submitContainer{
+	width:50%;
+	background-color:green;
+	float:left;
+	height:800px;
+
+}
+
+#letterContainer{
+	margin:auto;
+	background-color:yellow;
+	width:auto;
+	margin:25px;
+	vertical-align: middle;
+	position: relative;
+  	top: 250px; left: 0; bottom: 0; right: 0;
+
+}
+
+#bountyContainer{
+	float:right;
+	width:50%;
+	height:100px;
+	background-color:orange;
+	height:800px;
+}
+
+#bountyList{
+	width:auto;
+	margin:25px;
+	padding:25px 0 0 50px;
+	height:550px;
+	background-color:yellow;
+	overflow-y: scroll;
+}
+
+.bounty{
+	width:40%;
+	height:400px;
+	margin:50px 10% 50px 0;
+	background-color:red;
+	float:left;
+}
+
+.bountyPic{
+	width:150px;
+	height:150px;
+	background-color:blue;
+	margin:auto;
+	position:relative;
+	top: 25px;
+}
+
+.bountyListContainer{
+	position: relative;
+	top:10px;
+	margin:auto;
+	background-color:blue;
+	width:80%;
+	height:200px;
+}
+.bountyListContainer ul{
+	list-style: none;
+}
+
+.bountyListContainer li{
+	font-size:25px;
+	text-align: center;
+	margin:0 0 0 -40px;
+}
