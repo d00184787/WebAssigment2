@@ -66,7 +66,6 @@ var pinBountyPaper = function(bountyClientInfo) { //MUST BE DONE THROUGH GET
 bountySubmit.onclick = function(){
 	bountyClientInfo = {name: bountyInput1.value, age: bountyInput2.value, reason: bountyInput3.value, bounty: bountyInput4.value}
 	console.log("All the Bounty Info: ",bountyClientInfo)
-	console.log("All the Bounty Info: ", bountyClientInfo.reason)
 
 	createBounty(bountyClientInfo)
 	//pinBountyPaper(bountyClientInfo)
@@ -74,7 +73,7 @@ bountySubmit.onclick = function(){
 
 //FETCH GET
 var getBounty = function(name){
-fetch("http://localhost:8080/pandas").then(function (response) {
+fetch("http://localhost:8080/assassins").then(function (response) {
 	response.json().then(function(theData){
 		console.log("Data List:", theData)
 	  	list_of_hits = theData;
@@ -85,19 +84,22 @@ fetch("http://localhost:8080/pandas").then(function (response) {
 
 console.log("List of Hits2: ", list_of_hits)
 
-//FETCH CREATE
-var createBounty = function(bountyClientInfo) {
-	var Data = bountyClientInfo=encodeURIcomponent(bountyClientInfo);
-	fetch("http://localhost:8080/pandas",{
+//FETCH CREATE 
+
+var createBounty = function(clientInfo) {
+	var Data = clientInfo=encodeURIComponent(clientInfo);
+
+	console.log(Data)
+
+	fetch("http://localhost:8080/assassins",{
 		method: "POST",
 		body: Data,
 		headers: {"content-type":"application/x-www-form-urlencoded"}
 	}).then(function (response) {
-		response.json().then(function(theData){
-			console.log("Cool, you were able create something:", Data)
+		//NEVER EVER PUT JSON CODE HERE. IT CREATING and sending URLENCODED it not needed
+		console.log("Cool, you were able create something:", Data)
 			//Need to save the data to file?
   		});
-	});
 };
 
 
