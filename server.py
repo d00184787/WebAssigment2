@@ -52,7 +52,12 @@ class MyHandler(BaseHTTPRequestHandler):
         name = data['name'][0]
         print("The First name:", name)
         
-        assassins.append(name) #GOES BACK TO THE ASSASSIN GLOBAL VAR
+        assassins.append(data) #GOES BACK TO THE ASSASSIN GLOBAL VAR
+
+        print(assassins)
+
+    def writeToFile(self):
+        pass
 
 
 def run():

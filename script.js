@@ -87,8 +87,12 @@ console.log("List of Hits2: ", list_of_hits)
 //FETCH CREATE 
 
 var createBounty = function(clientInfo) {
-	var Data = clientInfo=encodeURIComponent(clientInfo);
 
+	//clientInfo = "Test  Test^"
+
+	var Data = 'name=' + encodeURIComponent(clientInfo);
+	var Data = 'name=' + encodeURIComponent(clientInfo.name) + '&age=' + encodeURIComponent(clientInfo.age)
+ + "&reason=" + encodeURIComponent(clientInfo.reason) + "&bounty=" + encodeURIComponent(clientInfo.bounty);
 	console.log(Data)
 
 	fetch("http://localhost:8080/assassins",{
