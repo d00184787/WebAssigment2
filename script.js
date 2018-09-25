@@ -18,12 +18,7 @@ console.log("bountySubmit ", bountySubmit);
 
 var bountyList = document.querySelector('#bountyList');
 
-list_of_hits = [{name:"John Doe"},
-		{age:"21"},
-		{reason:"Vote for Dan Doom"},
-		{bounty:"500000"}
-		]
-
+var list_of_hits;
 //For TESTING puroses, create a inital list of doom to test create. Once done, remove it. You only
 //create when you do a input
 
@@ -38,18 +33,12 @@ var pinBountyPaper = function(bountyClientInfo) { //MUST BE DONE THROUGH GET
 
 	var bountyUL = document.createElement("ul");
 	var bountyName = document.createElement("li");
-	var bountyAge = document.createElement("li");
-	var bountyReason = document.createElement("li");
-	var bountyBounty = document.createElement("li");
 
 	bountyDiv.className = "bounty";
 	bountyPic.className = "bountyPic";
 	bountyListContainer.className = "bountyListContainer"
 
-	bountyName.innerHTML = bountyClientInfo.name
-	bountyAge.innerHTML = bountyClientInfo.age
-	bountyReason.innerHTML = bountyClientInfo.reason
-	bountyBounty.innerHTML = bountyClientInfo.bounty
+	bountyName.innerHTML = bountyClientInfo
 
 	bountyList.appendChild(bountyDiv)
 	bountyDiv.appendChild(bountyPic)
@@ -57,17 +46,44 @@ var pinBountyPaper = function(bountyClientInfo) { //MUST BE DONE THROUGH GET
 	bountyListContainer.appendChild(bountyUL)
 
 	bountyUL.appendChild(bountyName)
-	bountyUL.appendChild(bountyAge)
-	bountyUL.appendChild(bountyReason)
-	bountyUL.appendChild(bountyBounty)
 };
 
 //Read the Inputs when Submit
 bountySubmit.onclick = function(){
-	bountyClientInfo = {name: bountyInput1.value, age: bountyInput2.value, reason: bountyInput3.value, bounty: bountyInput4.value}
+	//This past this the current info to Server. Which mean when it writes
+	//it will get current one that the user submit.
+	bountyClientInfo = bountyInput1.value
+	createBounty(bountyClientInfo)
+	getBounty()
+
+	//Empty and remove everything from the current bounty. MAKE SURE NOT PART
+	//of the INIT PROCESS
+	var bountyList = document.querySelector('#bountyList')
+	while (bountyList.firstChild){
+		bountyList.removeChild(bountyList.firstChild);
+	}
+
+
+	console.log('I got the new bounty list')
+
+	//make a loop function to write ALL the data from 
+	//reads from list_of_hits
+	setTimeout(function(){
+	for (i=0; i < list_of_hits.length; i++){
+		console.log(list_of_hits[i])
+		pinBountyPaper(list_of_hits[i])
+		console.log("building ", i)
+	}
+	}, 400);
+
+	//This statement below will be part of LOOP. 
+	//Going through Each of the Dictonry in the list
+	
 	console.log("All the Bounty Info: ",bountyClientInfo)
 
-	createBounty(bountyClientInfo)
+	//once assign current Bounty for the single loop, pass it through the
+	//pinBountyPaper
+
 	//pinBountyPaper(bountyClientInfo)
 }
 
@@ -75,25 +91,16 @@ bountySubmit.onclick = function(){
 var getBounty = function(name){
 fetch("http://localhost:8080/assassins").then(function (response) {
 	response.json().then(function(theData){
-		console.log("Data List:", theData)
 	  	list_of_hits = theData;
-	  	console.log("List of Hits:", list_of_hits)
   	});
 });
 };
-
-console.log("List of Hits2: ", list_of_hits)
-
-//FETCH CREATE 
 
 var createBounty = function(clientInfo) {
 
 	//clientInfo = "Test  Test^"
 
 	var Data = 'name=' + encodeURIComponent(clientInfo);
-	var Data = 'name=' + encodeURIComponent(clientInfo.name) + '&age=' + encodeURIComponent(clientInfo.age)
- + "&reason=" + encodeURIComponent(clientInfo.reason) + "&bounty=" + encodeURIComponent(clientInfo.bounty);
-	console.log(Data)
 
 	fetch("http://localhost:8080/assassins",{
 		method: "POST",
@@ -105,5 +112,17 @@ var createBounty = function(clientInfo) {
 			//Need to save the data to file?
   		});
 };
-
-
+getBounty()
+; // This will run on page load
+setInterval(function(){
+    getBounty()
+    var bountyList = document.querySelector('#bountyList')
+	while (bountyList.firstChild){
+		bountyList.removeChild(bountyList.firstChild);
+	}
+	for (i=0; i < list_of_hits.length; i++){
+		console.log(list_of_hits[i])
+		pinBountyPaper(list_of_hits[i])
+		console.log("building ", i)
+	}
+}, 1000);
