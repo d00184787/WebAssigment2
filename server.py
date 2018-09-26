@@ -6,18 +6,36 @@ assassins = []
 
 class MyHandler(BaseHTTPRequestHandler):
 
-    def readFromFile(self):
-        f = open("list.txt", "r")
-        json_data = (json.loads(f.read()))
-        print(json_data)
-        return json_data
+#    def readFromFile(self):
+#        json_data = []
+#        for line in open('list.txt', 'r'):
+#            json_data.append(json.loads(line))
+        #f = open("list.txt", "r")
+        #json_data = (json.loads(f.read()))
+#        print(json_data)
+#        return json_data
 
-    def writeToFile(self, hitData):
-        f = open("list.txt", "a")
-        f.append(hitData)
-        f.write(json.dumps(hitData))
-        #{"name": ["WowMan"], "age": ["88"], "reason": ["lol"], "bounty": ["2500"]}
-        #^^^ put in a list of dictionary [{},{},{}] <- in LIST not after.
+#    def writeToFile(self, hitData):
+#        new_lst = []
+#        data = self.readFromFile()
+#        print("THIS IS DATA", data)
+#        for line in data:
+#            new_lst.append(line)
+#            print(line)
+#        print(new_lst)
+
+#        print("THIS IS NEW DATA", hitData['name'])
+#        name = hitData['name']
+#        name = name[0]
+#        print("THIS IS INSIDE THE DATA", name)
+
+#        new_lst.append(name)
+
+#        print("FINAL LIST", new_lst)
+
+#        f = open("list.txt", "w")
+#        print('COVER TO JSON', json.dumps(new_lst))
+#        f.write(json.dumps(new_lst))
 
 
     def do_GET(self):

@@ -5,26 +5,26 @@
 	</head>
 	<body>
 		<div id=Container>
-			<div id="header"></div>
+			<div id="header"><div id="logo"></div></div>
 
 			<div id="submitContainer">
-
+				<h2>Email</h2>
 				<div id="letterContainer">
+				<div id="bountyInputContainer">
 				<!----Reason has a 20 character limit------>
-				<p>Your Hit:</p><input id="bountyInput1"></input>
-				<p>His Age:</p><input id="bountyInput2"></input>
-				<!----Reason has a 55 character limit------>
-				<p>Reason:</p><input id="bountyInput3"></input>
-				<p>Bounty:</p><input id="bountyInput4"></input>
+				<textarea id="bountyInput1" placeholder="Name Your Hit, follow by a message."></textarea></br>
 				<button id="bountySubmit">Submit</button>
+				</div>
 				</div>
 
 			</div>
 
 			<div id="bountyContainer">
+			<h2>Bounty Board</h2>
 				<div id="bountyList">
 					<!----Create List of Bountys Here---->
-					<div class="bounty">
+
+					<!--<div class="bounty">
 						<div class="bountyPic"></div>
 						<div class="bountyListContainer">
 							<ul>
@@ -34,10 +34,20 @@
 							<li>Reward: $2500</li>
 							</ul>
 						</div>
-					</div>
-
-
+					</div>--->
+					<!--<div class="bounty">
+						<div class="bountyPic"></div>
+						<div class="bountyListContainer">
+							<ul>
+							<li>Brandon Henning</li>
+							<li>Age: 21</li>
+							<li>Reason: Bad Poster</li>
+							<li>Reward: $2500</li>
+							</ul>
+						</div>
+					</div>--->
 				</div>
+				<!--<button id="bountySubmit2">Clear</button>-->
 			</div>
 		</div>
 	<script src="script.js"></script>
