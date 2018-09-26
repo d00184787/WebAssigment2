@@ -112,6 +112,11 @@ var createBounty = function(clientInfo) {
 			//Need to save the data to file?
   		});
 };
+
+bountySubmit.onclick = function(){
+	list_of_hits = []
+}
+
 getBounty()
 ; // This will run on page load
 setInterval(function(){
