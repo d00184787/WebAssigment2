@@ -4,17 +4,11 @@ console.log("It works!");
 bountyInput1 = document.querySelector("#bountyInput1");
 console.log("bountyInput1 ", bountyInput1);
 
-bountyInput2 = document.querySelector("#bountyInput2");
-console.log("bountyInput2 ", bountyInput2);
-
-bountyInput3 = document.querySelector("#bountyInput3");
-console.log("bountyInput3 ", bountyInput3);
-
-bountyInput4 = document.querySelector("#bountyInput4");
-console.log("bountyInput4 ", bountyInput4);
-
 bountySubmit = document.querySelector("#bountySubmit");
 console.log("bountySubmit ", bountySubmit);
+
+bountySubmit2 = document.querySelector("#bountySubmit2");
+console.log("bountySubmit2 ", bountySubmit2);
 
 var bountyList = document.querySelector('#bountyList');
 
@@ -54,6 +48,8 @@ bountySubmit.onclick = function(){
 	//it will get current one that the user submit.
 	bountyClientInfo = bountyInput1.value
 	createBounty(bountyClientInfo)
+	
+
 	getBounty()
 
 	//Empty and remove everything from the current bounty. MAKE SURE NOT PART
@@ -81,6 +77,8 @@ bountySubmit.onclick = function(){
 	
 	console.log("All the Bounty Info: ",bountyClientInfo)
 
+	bountyInput1.value = ''
+
 	//once assign current Bounty for the single loop, pass it through the
 	//pinBountyPaper
 
@@ -98,8 +96,6 @@ fetch("http://localhost:8080/assassins").then(function (response) {
 
 var createBounty = function(clientInfo) {
 
-	//clientInfo = "Test  Test^"
-
 	var Data = 'name=' + encodeURIComponent(clientInfo);
 
 	fetch("http://localhost:8080/assassins",{
@@ -113,18 +109,20 @@ var createBounty = function(clientInfo) {
   		});
 };
 
-bountySubmit.onclick = function(){
-	list_of_hits = []
-}
+//bountySubmit2.onclick = function(){
+//	createBounty('789456123456789')
+//}
 
 getBounty()
-; // This will run on page load
+
 setInterval(function(){
     getBounty()
     var bountyList = document.querySelector('#bountyList')
 	while (bountyList.firstChild){
 		bountyList.removeChild(bountyList.firstChild);
 	}
+	
+	
 	for (i=0; i < list_of_hits.length; i++){
 		console.log(list_of_hits[i])
 		pinBountyPaper(list_of_hits[i])
